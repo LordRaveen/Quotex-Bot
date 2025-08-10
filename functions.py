@@ -17,7 +17,7 @@ def fetch_channel_messages(chat, session_name, api_id, api_hash):
         # Replace with your API ID and hash
         data_list = []
         async with TelegramClient(session_name, api_id, api_hash) as client:
-            async for message in client.iter_messages(chat, offset_date=datetime.date.today(), reverse=True, limit=5):
+            async for message in client.iter_messages(chat, offset_date=datetime.date(2025, 8,9), reverse=True, limit=20):
                 data = {"date": message.date, "text": message.text}
                 data_list.append(data)
 

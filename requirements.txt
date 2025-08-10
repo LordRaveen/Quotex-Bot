@@ -1,0 +1,6 @@
+telethon==1.40.0
+pyquotex @ git+https://github.com/cleitonleonel/pyquotex.git@8706f2c4c5db41584495de44f255cb51e9e711ea
+flask==3.1.1
+pytz==2025.2
+requests==2.32.4
+websocket-client==1.8.0

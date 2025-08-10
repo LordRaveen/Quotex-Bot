@@ -2,28 +2,235 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Place Order</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotex Trading Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input:hover, select:hover {
+            border-color: #667eea;
+            background: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .info-box p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .duration-hint {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-custom {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-custom {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .radio-option:hover .radio-custom {
+            border-color: #667eea;
+            background: white;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Place an Order</h1>
-    <form action="/place_order" method="post">
-        <label>Amount:</label><br>
-        <input type="number" name="amount" step="0.01" required><br><br>
+    <div class="container">
+        <h1>🚀 Quotex Trading Bot</h1>
 
-        <label>Asset:</label><br>
-        <input type="text" name="asset" required><br><br>
+        <form action="/place_order" method="post">
+            <div class="form-group">
+                <label>💰 Amount (USD):</label>
+                <input type="number" name="amount" step="0.01" value="10" placeholder="Enter amount" required>
+            </div>
 
-        <label>Direction:</label><br>
-        <select name="direction" required>
-            <option value="">--Select--</option>
-            <option value="call">Buy</option>
-            <option value="put">Sell</option>
-        </select><br><br>
+            <div class="form-group">
+                <label>📈 Asset Pair:</label>
+                <input type="text" name="asset" value="AUDUSD" placeholder="e.g., EURUSD, GBPUSD" required>
+            </div>
 
-        <label>Duration:</label><br>
-        <input type="text" name="duration" placeholder="e.g. 5m, 1h" required><br><br>
+            <div class="form-group">
+                <label>📊 Direction:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="direction" value="call" checked>
+                        <span class="radio-custom">📈 Buy (Call)</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="direction" value="put">
+                        <span class="radio-custom">📉 Sell (Put)</span>
+                    </label>
+                </div>
+            </div>
 
-        <button type="submit">Place Order</button>
-    </form>
+            <div class="form-group">
+                <label>⏱️ Duration (seconds):</label>
+                <input type="number" name="duration" placeholder="e.g., 60 for 1 minute" value="20" required>
+                <div class="duration-hint">Common durations: 60s (1m), 300s (5m), 600s (10m), 3600s (1h)</div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                🎯 Place Order
+            </button>
+        </form>
+    </div>
 </body>
 </html>
