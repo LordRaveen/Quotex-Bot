@@ -8,6 +8,8 @@ from telethon.sync import TelegramClient
 from pyquotex.stable_api import Quotex
 import logging
 import pytz
+import os
+from dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(
@@ -20,21 +22,27 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Load environment variables
+load_dotenv()
+
 # Fix Unicode encoding for Windows console
 import sys
 if sys.platform.startswith('win'):
     # Set console to UTF-8 mode
-    import os
     os.system('chcp 65001 > nul')
 
-# Configuration
-TELEGRAM_API_ID = 26500165
-TELEGRAM_API_HASH = '119c983b9aee401c4411b140bf11f463'
-TELEGRAM_SESSION = 'my_session'
-TELEGRAM_CHAT = "https://t.me/+MJeq2boHo5gxNGVh"
+# Configuration - Load from environment variables
+TELEGRAM_API_ID = int(os.getenv('TELEGRAM_API_ID', '26500165'))
+TELEGRAM_API_HASH = os.getenv('TELEGRAM_API_HASH', '119c983b9aee401c4411b140bf11f463')
+TELEGRAM_SESSION = os.getenv('TELEGRAM_SESSION', 'my_session')
+TELEGRAM_CHAT = os.getenv('TELEGRAM_CHAT', "https://t.me/+MJeq2boHo5gxNGVh")
 
-QUOTEX_EMAIL = "courageokaka9@gmail.com"
-QUOTEX_PASSWORD = "quotexPass9@"
+QUOTEX_EMAIL = os.getenv('QUOTEX_EMAIL')
+QUOTEX_PASSWORD = os.getenv('QUOTEX_PASSWORD')
+
+# Validate required environment variables
+if not QUOTEX_EMAIL or not QUOTEX_PASSWORD:
+    raise ValueError("QUOTEX_EMAIL and QUOTEX_PASSWORD must be set in environment variables or .env file")
 
 # Trading parameters
 DEFAULT_AMOUNT = 1.0  # Default bet amount in USD

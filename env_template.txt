@@ -1,0 +1,15 @@
+# Telegram Configuration
+TELEGRAM_API_ID=26500165
+TELEGRAM_API_HASH=119c983b9aee401c4411b140bf11f463
+TELEGRAM_SESSION=my_session
+TELEGRAM_CHAT=https://t.me/+MJeq2boHo5gxNGVh
+
+# Quotex Trading Account
+QUOTEX_EMAIL=your_email@example.com
+QUOTEX_PASSWORD=your_password_here
+
+# Trading Parameters (optional - will use defaults if not set)
+# DEFAULT_AMOUNT=1.0
+# CHECK_INTERVAL=30
+# GALE_MULTIPLIER=2.0
+# TEST_MODE=False

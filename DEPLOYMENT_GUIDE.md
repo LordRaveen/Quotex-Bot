@@ -17,7 +17,27 @@
    - `requirements.txt`
    - `templates/index.html`
 
-### Step 3: Install Dependencies
+### Step 3: Set Up Environment Variables
+1. Create a `.env` file in your project directory:
+   ```bash
+   cd quotex-bot
+   nano .env
+   ```
+2. Add your credentials (copy from `env_template.txt` and replace with your actual values):
+   ```bash
+   # Telegram Configuration
+   TELEGRAM_API_ID=26500165
+   TELEGRAM_API_HASH=119c983b9aee401c4411b140bf11f463
+   TELEGRAM_SESSION=my_session
+   TELEGRAM_CHAT=https://t.me/+MJeq2boHo5gxNGVh
+   
+   # Quotex Trading Account
+   QUOTEX_EMAIL=your_actual_email@example.com
+   QUOTEX_PASSWORD=your_actual_password
+   ```
+3. Save the file (Ctrl+X, then Y, then Enter)
+
+### Step 4: Install Dependencies
 1. Go to the **Consoles** tab
 2. Open a **Bash console**
 3. Navigate to your project directory:
@@ -29,7 +49,7 @@
    pip install -r requirements.txt
    ```
 
-### Step 4: Configure Telegram Session
+### Step 5: Configure Telegram Session
 1. In the bash console, run:
    ```bash
    python -c "from telethon.sync import TelegramClient; TelegramClient('my_session', 26500165, '119c983b9aee401c4411b140bf11f463').start()"
@@ -38,14 +58,14 @@
 3. Enter the verification code sent to your Telegram
 4. This will create the `my_session.session` file
 
-### Step 5: Set Up Scheduled Task
+### Step 6: Set Up Scheduled Task
 1. Go to the **Tasks** tab
 2. Add a new scheduled task:
    - **Command**: `cd ~/quotex-bot && python run.py`
    - **Schedule**: Daily at 8:00 AM UTC-3 (or whenever you want it to start)
    - **Enabled**: Yes
 
-### Step 6: Test the Bot
+### Step 7: Test the Bot
 1. In the bash console, run:
    ```bash
    cd quotex-bot
@@ -53,7 +73,7 @@
    ```
 2. Check the logs to ensure everything is working
 
-### Step 7: Monitor Your Bot
+### Step 8: Monitor Your Bot
 - Check the **Files** tab to view `trading_bot.log`
 - Monitor the database file `trades.db`
 - Check PythonAnywhere's task logs
